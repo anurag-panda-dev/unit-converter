@@ -1,0 +1,504 @@
+/* ===========================
+   Modal Styles
+   =========================== */
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8));
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+}
+
+.modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-content {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-lg);
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 25px 80px var(--shadow-xl), 0 0 40px var(--glow);
+    animation: slideUpBounce 0.5s var(--bounce);
+}
+
+.modal-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--accent-gradient);
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+}
+
+@keyframes slideUpBounce {
+    0% {
+        transform: translateY(50px) scale(0.95);
+        opacity: 0;
+    }
+    60% {
+        transform: translateY(-5px) scale(1.01);
+    }
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+.modal-close {
+    position: absolute;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    background: var(--bg-primary);
+    border: 2px solid var(--border);
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-muted);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    transition: all var(--transition-normal) var(--bounce);
+    z-index: 10;
+}
+
+.modal-close:hover {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    border-color: transparent;
+    color: white;
+    transform: rotate(90deg) scale(1.1);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+.modal-close:active {
+    transform: rotate(90deg) scale(0.95);
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+    padding-top: var(--spacing-xs);
+}
+
+.modal-icon {
+    font-size: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: var(--accent-gradient);
+    border-radius: var(--radius-md);
+    animation: iconPop 0.6s var(--bounce);
+}
+
+@keyframes iconPop {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.modal-header h2 {
+    font-size: 1.75rem;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.modal-description {
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-lg);
+    line-height: 1.6;
+}
+
+/* ===========================
+   Converter Interface
+   =========================== */
+
+.converter-interface {
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-hover) 100%);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+    position: relative;
+    overflow: hidden;
+}
+
+.converter-interface::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
+    opacity: 0.05;
+    pointer-events: none;
+}
+
+.input-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.input-group label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: var(--spacing-xs);
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    position: relative;
+    z-index: 1;
+}
+
+.input-row {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.converter-input {
+    flex: 1;
+    padding: 1rem 1.25rem;
+    border: 2px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    font-weight: 600;
+    transition: all var(--transition-normal);
+    position: relative;
+    z-index: 1;
+}
+
+.converter-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--glow), 0 4px 12px var(--shadow);
+    transform: translateY(-2px);
+}
+
+.converter-input:hover {
+    border-color: var(--accent-light);
+}
+
+.converter-input[readonly] {
+    background-color: var(--bg-hover);
+    cursor: default;
+}
+
+.unit-select {
+    padding: 1rem 1.25rem;
+    border: 2px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    min-width: 140px;
+    position: relative;
+    z-index: 1;
+}
+
+.unit-select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--glow), 0 4px 12px var(--shadow);
+    transform: translateY(-2px);
+}
+
+.unit-select:hover {
+    border-color: var(--accent-light);
+    background: var(--bg-hover);
+}
+
+.swap-button-container {
+    display: flex;
+    justify-content: center;
+    margin: var(--spacing-sm) 0;
+}
+
+.swap-button {
+    background: var(--accent-gradient);
+    color: white;
+    border: none;
+    border-radius: var(--radius-full);
+    width: 56px;
+    height: 56px;
+    font-size: 1.75rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all var(--transition-normal) var(--bounce);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px var(--glow), 0 2px 8px var(--shadow);
+    position: relative;
+    z-index: 1;
+}
+
+.swap-button::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: var(--accent-gradient);
+    border-radius: var(--radius-full);
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+    filter: blur(8px);
+    z-index: -1;
+}
+
+.swap-button:hover {
+    transform: rotate(180deg) scale(1.1);
+    box-shadow: 0 8px 24px var(--glow), 0 4px 16px var(--shadow-lg);
+}
+
+.swap-button:hover::before {
+    opacity: 0.6;
+}
+
+.swap-button:active {
+    transform: rotate(180deg) scale(0.95);
+}
+
+/* ===========================
+   Formula Info
+   =========================== */
+
+.formula-info {
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-hover) 100%);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    margin-top: var(--spacing-md);
+    position: relative;
+    overflow: hidden;
+    animation: slideIn 0.4s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.formula-info::before {
+    content: '💡';
+    position: absolute;
+    top: 50%;
+    right: var(--spacing-md);
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    opacity: 0.3;
+}
+
+.formula-info h4 {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: var(--spacing-xs);
+    letter-spacing: 0.05em;
+}
+
+.formula-info p {
+    color: var(--text-secondary);
+    font-family: 'Courier New', monospace;
+    font-size: 0.875rem;
+    line-height: 1.6;
+}
+
+/* ===========================
+   Animations
+   =========================== */
+
+.pulse {
+    animation: pulse 0.3s ease;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* ===========================
+   Responsive Modal
+   =========================== */
+
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        padding: var(--spacing-md);
+    }
+    
+    .modal-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .input-row {
+        flex-direction: column;
+    }
+    
+    .unit-select {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .converter-input {
+        font-size: 1rem;
+        padding: 0.75rem;
+    }
+    
+    .unit-select {
+        font-size: 0.875rem;
+        padding: 0.75rem;
+    }
+}
+
+/* ===========================
+   Additional Enhancements
+   =========================== */
+
+/* Smooth scrolling for modal content */
+.modal-content {
+    scroll-behavior: smooth;
+}
+
+/* Input focus states with glow effect */
+.converter-input:focus,
+.unit-select:focus {
+    animation: inputGlow 0.3s ease;
+}
+
+@keyframes inputGlow {
+    0%, 100% {
+        box-shadow: 0 0 0 4px var(--glow);
+    }
+    50% {
+        box-shadow: 0 0 0 6px var(--glow), 0 0 20px var(--glow);
+    }
+}
+
+/* Readonly input special styling */
+.converter-input[readonly] {
+    background: linear-gradient(135deg, var(--bg-hover) 0%, var(--bg-primary) 100%);
+    cursor: not-allowed;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+/* Enhance modal description */
+.modal-description {
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.modal-description::before {
+    content: '💡';
+    position: absolute;
+    left: 0;
+    font-size: 1rem;
+    opacity: 0.6;
+}
+
+/* Add number input styling (remove spin buttons) */
+.converter-input::-webkit-outer-spin-button,
+.converter-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.converter-input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+/* Selection styling */
+::selection {
+    background: var(--accent);
+    color: white;
+}
+
+::-moz-selection {
+    background: var(--accent);
+    color: white;
+}
+
+/* Add loading state for inputs */
+.converter-input.loading {
+    animation: shimmer 1.5s infinite;
+    background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--bg-hover) 50%, var(--bg-secondary) 75%);
+    background-size: 200% 100%;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* Success state for result */
+.converter-input.success {
+    border-color: var(--success);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+}

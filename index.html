@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Fast and accurate unit converter for length, weight, temperature, speed, time, volume, area, digital storage, and energy.">
+    <title>Universal Unit Converter</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/converters.css">
+</head>
+<body>
+    <!-- Header with Search -->
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">⚡ Unit Converter</h1>
+                <div class="search-container">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Search converters..." autocomplete="off">
+                    <div class="search-results" id="searchResults"></div>
+                </div>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <h2>Convert Units Instantly</h2>
+                <p>Fast, accurate, and easy-to-use converter for all your measurement needs</p>
+            </section>
+
+            <!-- Recently Used (if any) -->
+            <section class="recently-used" id="recentlyUsed" style="display: none;">
+                <h3>📌 Recently Used</h3>
+                <div class="converter-grid" id="recentGrid"></div>
+            </section>
+
+            <!-- Converters Grid -->
+            <section class="converters-section">
+                <h3>All Converters</h3>
+                <div class="converter-grid" id="converterGrid">
+                    
+                    <!-- Length Converter -->
+                    <div class="converter-card" data-converter="length" data-keywords="meter metre centimeter kilometer inch foot yard mile distance">
+                        <div class="card-icon">📏</div>
+                        <h4>Length</h4>
+                        <p>Convert between metric and imperial units like meters, feet, and miles.</p>
+                        <div class="card-units">m, cm, km, in, ft, yd, mi</div>
+                    </div>
+
+                    <!-- Weight Converter -->
+                    <div class="converter-card" data-converter="weight" data-keywords="gram kilogram pound ounce ton mass">
+                        <div class="card-icon">⚖️</div>
+                        <h4>Weight / Mass</h4>
+                        <p>Convert weight and mass units from grams to pounds and more.</p>
+                        <div class="card-units">g, kg, lb, oz, ton</div>
+                    </div>
+
+                    <!-- Temperature Converter -->
+                    <div class="converter-card" data-converter="temperature" data-keywords="celsius fahrenheit kelvin temperature degree">
+                        <div class="card-icon">🌡️</div>
+                        <h4>Temperature</h4>
+                        <p>Convert between Celsius, Fahrenheit, and Kelvin.</p>
+                        <div class="card-units">°C, °F, K</div>
+                    </div>
+
+                    <!-- Speed Converter -->
+                    <div class="converter-card" data-converter="speed" data-keywords="speed velocity meter kilometer mile hour knot">
+                        <div class="card-icon">🚀</div>
+                        <h4>Speed</h4>
+                        <p>Convert speed measurements for various applications.</p>
+                        <div class="card-units">m/s, km/h, mph, knot</div>
+                    </div>
+
+                    <!-- Time Converter -->
+                    <div class="converter-card" data-converter="time" data-keywords="second minute hour day week month year time duration">
+                        <div class="card-icon">⏱️</div>
+                        <h4>Time</h4>
+                        <p>Convert between different time units from seconds to years.</p>
+                        <div class="card-units">s, min, hr, day, week, year</div>
+                    </div>
+
+                    <!-- Volume Converter -->
+                    <div class="converter-card" data-converter="volume" data-keywords="liter milliliter gallon cubic meter volume liquid">
+                        <div class="card-icon">🧪</div>
+                        <h4>Volume</h4>
+                        <p>Convert liquid and dry volume measurements.</p>
+                        <div class="card-units">L, mL, gal, m³, cup</div>
+                    </div>
+
+                    <!-- Area Converter -->
+                    <div class="converter-card" data-converter="area" data-keywords="area square meter kilometer feet acre hectare">
+                        <div class="card-icon">📐</div>
+                        <h4>Area</h4>
+                        <p>Convert area measurements for land and surfaces.</p>
+                        <div class="card-units">m², km², ft², acre, ha</div>
+                    </div>
+
+                    <!-- Digital Storage Converter -->
+                    <div class="converter-card" data-converter="digital" data-keywords="byte kilobyte megabyte gigabyte terabyte storage memory data">
+                        <div class="card-icon">💾</div>
+                        <h4>Digital Storage</h4>
+                        <p>Convert data storage units from bytes to terabytes.</p>
+                        <div class="card-units">B, KB, MB, GB, TB</div>
+                    </div>
+
+                    <!-- Energy Converter -->
+                    <div class="converter-card" data-converter="energy" data-keywords="joule calorie kilowatt energy power watt">
+                        <div class="card-icon">⚡</div>
+                        <h4>Energy</h4>
+                        <p>Convert energy units for physics and nutrition.</p>
+                        <div class="card-units">J, cal, kWh, BTU</div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Converter Modal -->
+    <div class="modal" id="converterModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <div class="modal-header">
+                <span class="modal-icon" id="modalIcon">📏</span>
+                <h2 id="modalTitle">Length Converter</h2>
+            </div>
+            <p class="modal-description" id="modalDescription"></p>
+            
+            <div class="converter-interface">
+                <div class="input-group">
+                    <label for="fromValue">From</label>
+                    <div class="input-row">
+                        <input type="number" id="fromValue" class="converter-input" placeholder="Enter value" step="any">
+                        <select id="fromUnit" class="unit-select"></select>
+                    </div>
+                </div>
+
+                <div class="swap-button-container">
+                    <button class="swap-button" id="swapButton" title="Swap units">⇄</button>
+                </div>
+
+                <div class="input-group">
+                    <label for="toValue">To</label>
+                    <div class="input-row">
+                        <input type="number" id="toValue" class="converter-input" placeholder="Result" readonly>
+                        <select id="toUnit" class="unit-select"></select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="formula-info" id="formulaInfo" style="display: none;">
+                <h4>Formula</h4>
+                <p id="formulaText"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Anurag Panda. Fast, accurate, and free.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/converters/length.js"></script>
+    <script src="assets/js/converters/weight.js"></script>
+    <script src="assets/js/converters/temperature.js"></script>
+    <script src="assets/js/converters/speed.js"></script>
+    <script src="assets/js/converters/time.js"></script>
+    <script src="assets/js/converters/volume.js"></script>
+    <script src="assets/js/converters/area.js"></script>
+    <script src="assets/js/converters/digital.js"></script>
+    <script src="assets/js/converters/energy.js"></script>
+    <script src="assets/js/search.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
